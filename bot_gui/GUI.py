@@ -14,7 +14,7 @@ class GUI(tk.Tk):
 
         self.db = DB_pymysql()
         self.cursor = self.db.cur()
-        self.path_file = os.path.join(r"C:\Users\wearethewarriors\Downloads\Proyectos_personales\Bot de curiosidades\discord music bot\cogs", "config.json")
+        self.path_file = os.path.join(r"Your_path_to_config_file_here")
         self.file = open(self.path_file, "r")
         self.config = json.load(self.file)
 
