@@ -17,7 +17,7 @@ def main():
     client = Client()
 
     #Here you place your bot token
-    client.run("Your_bot_token_here")
+    client.run("MTA2Nzk4NTI5NzU3ODY3NjIzNA.GkmTrx.qjfA_9CejGb0zrGjtWgS5iquz_dyqnneoZrXJU")
 
 if __name__ == "__main__":
     main()

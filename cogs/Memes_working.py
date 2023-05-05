@@ -11,9 +11,9 @@ class Memes_working(commands.Cog):
 
         #Initialize all we need, the config file, the curiositys numbers for choosing, the database and the cursor
         self.client = client
-        self.path_file = os.path.join(r"C:\Users\wearethewarriors\Downloads\Proyectos_personales\Bot de curiosidades\discord music bot\cogs", "config.json")
-        self.file = open(self.path_file, "r")
-        self.config = json.load(self.file)
+        self.pathfile = os.path.join(r"C:\Users\wearethewarriors\Downloads\Proyectos_personales\Bot de curiosidades\discord music bot\cogs", "config.json")
+        with open(self.pathfile, "r") as file:
+            self.config = json.load(file)
         self.cu = self.config["values_choose"]["curiosidades"]
         self.chistes = self.config["values_choose"]["chistes"]
         self.DB = DB_pymysql()

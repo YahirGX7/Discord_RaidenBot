@@ -7,50 +7,58 @@ class pelea_mascotas(commands.Cog):
 
         #Initialize all we need, like the database, cursor and the object for "talking"
         self.client = client
-        self.DB = DB_pymysql()
-        self.cursor = self.DB.cur()
         self.RaidenTalk = RaidenTalk()
-
+        self.db = DB_pymysql()
+        self.cursor = self.db.cur()
+    
     #This command first checks if user is already registered with the id of the user, if yes, equips the mascot (that are in a MySQL table), else it tolds the user to register
     @commands.command()
     async def equipar(self, ctx, mascot):
-        id = ctx.author.id
-        self.cursor.execute("select user from users where user = (%s);", (id))
-        result1 = self.cursor.fetchone()
+        try:
+            id = ctx.author.id
+            self.cursor.execute("select user from users where user = (%s);", (id))
+            user_result = self.cursor.fetchone()
 
-        if result1 != None:
-            self.cursor.execute("select mascota from mascotasDisponibles where mascota = (%s);", (mascot))
-            result2 = self.cursor.fetchone()
+            if user_result is not None:
+                self.cursor.execute("select mascota from mascotasDisponibles where mascota = (%s);", (mascot))
+                mascot_result = self.cursor.fetchone()
 
-            if result2 != None: 
-                self.cursor.execute("update users set mascotaEquipada = (%s) where user = (%s);", (mascot, id))
-                self.DB.comm()
+                if mascot_result is not None: 
+                    self.cursor.execute("update users set mascotaEquipada = (%s) where user = (%s);", (mascot, id))
+                    self.db.comm()
                 
-                ans = Crear_Respuesta(f"Haz equipado a {mascot}!", None)
-                await ctx.reply(embed=ans.enviar)
+                    ans = Crear_Respuesta(f"Haz equipado a {mascot}!", None)
+                    await ctx.reply(embed=ans.enviar)
+            
+                else:
+                    ans = Crear_Respuesta("Esa mascota no existe!", None)
+                    await ctx.reply(embed=ans.enviar)
             
             else:
-                 ans = Crear_Respuesta("Esa mascota no existe!", None)
-                 await ctx.reply(embed=ans.enviar)
-            
-        else:
-             ans = Crear_Respuesta("Aun no te haz registrado!", None)
-             await ctx.reply(embed=ans.enviar)
+                ans = Crear_Respuesta("Aun no te haz registrado!", None)
+                await ctx.reply(embed=ans.enviar)
+
+        except Exception as e:
+            await ctx.send(e)
 
     #Command that shows the mascot the user had equiped, else it tolds they don't already equiped a mascot
     @commands.command()
     async def mascota(self, ctx):
-        id = ctx.author.id
-        self.cursor.execute("select mascotaEquipada from users where user = (%s);", (id))
-        result = self.cursor.fetchone()
+        try:
+            id = ctx.author.id
+            self.cursor.execute("select mascotaEquipada from users where user = (%s);", (id))
+            mascot_result = self.cursor.fetchone()
 
-        if result != None:
-             answer = Crear_Respuesta(f"Tienes equipado a {result[0]}!", None)
-             await ctx.reply(embed=answer.enviar)
+            if mascot_result is not None:
+                answer = Crear_Respuesta(f"Tienes equipado a {mascot_result[0]}!", None)
+                await ctx.reply(embed=answer.enviar)
 
-        else:
-             answer = Crear_Respuesta("No tienes equipada ninguna mascota!", None)
-             await ctx.reply(embed=answer.enviar)
+            else:
+                answer = Crear_Respuesta("No tienes equipada ninguna mascota!", None)
+                await ctx.reply(embed=answer.enviar)
+
+        except Exception as e:
+            await ctx.send(e)
 
     #This commands takes the text of the user and send the answer (using Open AI api)
     @commands.command()

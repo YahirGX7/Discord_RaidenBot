@@ -19,13 +19,13 @@ class Crear_Respuesta():
         @property
         def enviar(self):
             return self.respuesta
-
+        
 #This class allows us to connect a MySQL database using a config file         
-class DB_pymysql():
+class DB_pymysql:
     def __init__(self):
-        self.path_file = os.path.join(r"C:\Users\wearethewarriors\Downloads\Proyectos_personales\Bot de curiosidades\discord music bot\cogs", "config.json") 
-        self.file = open(self.path_file, "r")
-        self.config = json.load(self.file)
+        self.pathfile = os.path.join(r"C:\Users\wearethewarriors\Downloads\Proyectos_personales\Bot de curiosidades\discord music bot\cogs", "config.json")
+        with open(self.pathfile, "r") as file:
+            self.config = json.load(file)
         self.connections = self.StartConnection()
 
     #Function that returns the connection object
@@ -46,9 +46,9 @@ class DB_pymysql():
         self.connections.commit()
 
 #This class uses Open AI api to allow the users "talk" with the bot    
-class RaidenTalk():
+class RaidenTalk:
     def __init__(self):
-        self.api_key = "Your_api_key_here"
+        self.api_key = "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"
 
     #Function that takes a text provided by user, process it and returns the response
     def generate_text(self, message):

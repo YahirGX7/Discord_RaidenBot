@@ -10,9 +10,9 @@ class music_working(commands.Cog):
     def __init__(self, client: commands.Bot):
 
         #Initialize all we need, the config file, the database, cursor and the music numbers for choosing
-        self.path_file = os.path.join(r"C:\Users\wearethewarriors\Downloads\Proyectos_personales\Bot de curiosidades\discord music bot\cogs", "config.json")
-        self.file = open(self.path_file, "r")
-        self.config = json.load(self.file)
+        self.pathfile = os.path.join(r"C:\Users\wearethewarriors\Downloads\Proyectos_personales\Bot de curiosidades\discord music bot\cogs", "config.json")
+        with open(self.pathfile, "r") as file:
+            self.config = json.load(file)
         self.DB = DB_pymysql()
         self.cursor = self.DB.cur()
         self.client = client
