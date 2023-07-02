@@ -8,7 +8,7 @@ The discord bot uses a MySQL database, Open AI api and cogs from discord to do t
 
 It also have a GUI for add more music, jokes, memes and mascots. In the case of music and memes, it has to be the path (just something like meme.jpg, music.mp3).
 The GUI has 4 widgets, write what you want to add in the entry and click the button.
-To use the bot write the commands in a text channel in a server with the prefix (below you will see how to change it) something like: !meme.
+To use the bot write the commands in a text channel of the server with the prefix (below you will see how to change it) something like: !meme.
 
 In this link you can see how to get your bot token: https://www.youtube.com/watch?v=aI4OmIbkJH8
 In this other link you can see how to get your Open AI api key: https://www.youtube.com/watch?v=nafDyRsVnXU
